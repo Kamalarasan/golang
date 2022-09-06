@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: 
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+  namespace: golang
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /data
+          backend:
+            serviceName: golang-simple-app-data
+            servicePort: 8080
+        - path: /
+          backend:
+            serviceName: golang-simple-app
+            servicePort: 8080
