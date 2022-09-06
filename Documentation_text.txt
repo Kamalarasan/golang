@@ -1,0 +1,58 @@
+1) Create an optimized Dockerfile for our simple application
+
+--> Dockerfile Created & Attached in Mail.
+--> Image size without Optimization is 941MB & with Optimization 25.4MB(Snippet attached)
+--> Refered https://docs.docker.com/
+--> We can build with `docker build` command using Dockerfile.
+
+==============================================================
+
+2. Create a script 
+
+--> Script attached in mail in the name of "git_script.sh"
+--> Declared "branch_name" as variable.
+--> This will perform git clone of the declared branch & build the docker image with the Dockerfile(cloned from git) & then it tags the image with branch_name(variable)
+--> Here I use "gogit" as variable of "branch_name"
+
+================================================================
+
+3. Create a simple YAML deployment for our application with Livenessprobe feature.
+
+--> I have attached 5 yaml files.(2 Deployment, 2 svc & 1 Ingress)
+--> we can create golong with application feature by below mentioned steps.
+
+	I) Create Namespace to Seperate application from Others
+	
+	# kubectl create namespace golang
+	
+	II) Create Deployments for golang(namespaces were mentioned in yaml)
+	
+	# kubectl create -f golang-simple-app-1-deploy.yaml
+	# kubectl create -f golang-simple-app-data-deploy.yaml
+	
+	III) Check the Deployments Created
+	
+	# kubectl get pods -n golang
+	
+	IV) Create Services for golang(namespaces were mentioned in yaml)
+	
+	# kubectl create -f golang-simple-app-1-svc.yaml
+	# kubectl create -f golang-simple-app-data-svc.yaml
+	
+	V) Check the services Created
+	
+	# kubectl get svc -n golang
+	
+	VI) Create Ingress
+	
+	# kubectl create -f ingress.yaml
+
+--> Check the Application Reachability
+
+curl -kL http://localhost/
+hi
+
+curl -kL http://localhost/data
+data is here
+
+============================================== END =============================================
