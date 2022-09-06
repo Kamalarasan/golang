@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: golang-simple-app-data
+  namespace: golang
+  labels:
+    run: golang-simple-app-data
+spec:
+  replicas: 1
+  minReadySeconds: 25
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: golang-simple-app-data
+    spec:
+      containers:
+        - name: golang-simple-app-data
+          image: go-app:gogit
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+		      failureThreshold: 1
+          periodSeconds: 10
+          ports:
+            - containerPort: 8080
+              name: golang-simple-app-data
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: "2"
+              memory: 4Gi
